@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  启动屏：深色底 + 环绕图标的轨道 + 一行 slogan。
+
+  ⚠️ 图标和轨道不在这里 —— 全部由 SplashView 自绘。
+  原因见 SplashView 的类注释：轨道要绕图标中心转，两者必须共用一组坐标。
+
+  为什么不用 Android 12 的 Theme.SplashScreen：那套 API 只接受图标和背景色，
+  **没有放文字的位置**（windowSplashScreenAnimatedIcon 只能给图标，而且图标会被
+  圆形遮罩裁掉两侧，把文字画进图片里也行不通）。要在点开图标那一瞬间就显示字，
+  只能自己铺一个 Activity + 布局。
+
+  文字的纵向位置不写死在 XML：屏高比例（53.6%）由 SplashActivity 在测量完成后
+  设进 topMargin，写死 dp 会在 16:9 和 20:9 之间漂。
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0b0e13">
+
+    <cn.dailyintake.app.SplashView
+        android:id="@+id/splashArt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 初始 alpha=0：topMargin 要等测量完才设，先藏起来，避免首帧文字闪在顶部 -->
+    <LinearLayout
+        android:id="@+id/splashText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:alpha="0"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/splashSlogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.02"
+            android:text="轻松记录每日饮食"
+            android:textColor="#e9eef6"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/splashBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.06"
+            android:text="@string/app_name"
+            android:textColor="#8a94a4"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

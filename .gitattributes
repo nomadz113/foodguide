@@ -1,0 +1,13 @@
+# 统一换行，避免 Windows/Linux 混提交
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.jar binary
+*.apk binary
+*.aab binary
+*.woff binary
+*.woff2 binary

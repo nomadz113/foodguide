@@ -1,0 +1,13 @@
+{
+  "appId": "cn.dailyintake.app",
+  "appName": "每日摄入",
+  "webDir": "dist",
+  "server": {
+    "url": "https://nomadz-d7gjjkkjleb118f55-1513689063.tcloudbaseapp.com/",
+    "androidScheme": "https"
+  },
+  "android": {
+    "adjustMarginsForEdgeToEdge": "force",
+    "backgroundColor": "#0b0e13"
+  }
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- interactive-widget=resizes-content：键盘升起时连「布局视口」一起压，
+         而不是只压可视视口。不支持的浏览器由 ui/keyboard.ts 用 visualViewport 兜底，
+         两者不会重复计算（差值算出来是 0 时就不动作）。 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+    <meta name="theme-color" content="#0b0e13" />
+    <title>每日摄入指南</title>
+    <meta
+      name="description"
+      content="拍照或一句话记一餐，自动算 19 项营养素，对比个人目标看日/周/月/季进度。数据只存在本机。"
+    />
+
+    <!-- PWA：可装到桌面，装完就是全屏，没有浏览器地址栏 -->
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="每日摄入" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

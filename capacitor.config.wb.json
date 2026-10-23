@@ -1,0 +1,14 @@
+{
+  "appId": "cn.dailyintake.app",
+  "appName": "每日摄入",
+  "webDir": "dist",
+  "server": {
+    "url": "https://daily-intake.app.workbuddy.host/?sharecode=S7TQGVBK2V",
+    "androidScheme": "https"
+  },
+  "android": {
+    "adjustMarginsForEdgeToEdge": "force",
+    "backgroundColor": "#0b0e13"
+  },
+  "plugins": {}
+}

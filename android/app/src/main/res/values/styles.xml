@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- App 是纯深色（#0b0e13）。系统栏与窗口底色都跟它对齐：
+         否则启动瞬间闪一下白，状态栏图标也会是深色压在深色背景上。 -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">#0b0e13</item>
+        <item name="android:statusBarColor">#0b0e13</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">#0b0e13</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <!--
+      启动屏（SplashActivity 专用）。
+      系统栏一并染成深色：否则启动瞬间状态栏是另一块颜色，像没加载完。
+      注意 MainActivity 不配主题也行 —— BridgeActivity 会在 onCreate 里强制
+      setTheme(AppTheme.NoActionBar)，manifest 里写什么都不生效。
+    -->
+    <style name="AppTheme.Splash" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">#0b0e13</item>
+        <item name="android:statusBarColor">#0b0e13</item>
+        <item name="android:navigationBarColor">#0b0e13</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

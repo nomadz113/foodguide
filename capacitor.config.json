@@ -1,0 +1,10 @@
+{
+  "appId": "cn.dailyintake.app",
+  "appName": "每日摄入",
+  "webDir": "dist",
+  "android": {
+    "adjustMarginsForEdgeToEdge": "disable",
+    "backgroundColor": "#0b0e13"
+  },
+  "plugins": {}
+}

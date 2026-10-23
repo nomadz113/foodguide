@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">每日摄入</string>
+    <string name="title_activity_main">每日摄入</string>
+    <string name="package_name">cn.dailyintake.app</string>
+    <string name="custom_url_scheme">cn.dailyintake.app</string>
+</resources>

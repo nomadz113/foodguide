@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      包可见性（Android 11 / API 30 起）。
+      没有这段，Intent.resolveActivity() 看不到任何相机应用，Capacitor 会以为
+      「本机不支持拍照」，静默回退到文件选择器 —— 表现就是点了拍照只弹相册。
+      这不是鸿蒙特有的问题，任何 targetSdk ≥ 30 的包都会踩；
+      @capacitor/camera 插件自带这段声明，所以用插件的项目不会遇到。
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.VIDEO_CAPTURE" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--
+          启动屏是真正的入口：显示「记录每日饮食」约 2 秒后自己拉起 MainActivity。
+          之所以要它，是因为 Android 12 的 Theme.SplashScreen 加不了文字（只有图标 + 背景色）。
+        -->
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.Splash"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <!--
+          windowSoftInputMode=adjustResize：键盘升起时**压缩** WebView，
+          而不是把整个窗口往上顶（pan）。开了 edge-to-edge 全屏后默认是 pan，
+          表现就是「点了输入框，却看不见自己打了什么字」。
+          万一它在某个 ROM 上不生效，ui/keyboard.ts 会用 visualViewport 兜底，
+          两者不会重复让位（系统已压时算出的差值是 0）。
+        -->
+        <activity
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+    </application>
+
+    <!-- Permissions -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>
