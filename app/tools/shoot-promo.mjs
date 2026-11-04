@@ -13,6 +13,7 @@
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import puppeteer from 'puppeteer-core';
+import { completeOnboarding } from './lib/onboard.mjs';
 
 const EDGE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const BASE = process.argv[2] ?? 'http://localhost:4173';
@@ -34,6 +35,10 @@ page.on('console', (m) => {
 page.on('pageerror', (e) => errs.push('PAGEERROR ' + e.message.slice(0, 200)));
 
 await page.goto(`${BASE}/#/`, { waitUntil: 'networkidle2', timeout: 30000 });
+// 0.9.5 起空库不再自动写默认档案：新 profile 一进来就停在首次引导页，
+// 直接等 .ringwrap 只会静默超时，拍出来的全是引导页。
+// 这里走真 UI 把引导过完（档案也就是截图里要展示的那份：1994-06-15 / 172 / 71.5）。
+await completeOnboarding(page, { wait: sleep });
 await page.waitForSelector('.ringwrap', { timeout: 20000 });
 
 const seeded = await page.evaluate(async () => {
