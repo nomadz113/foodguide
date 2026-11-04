@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- interactive-widget=resizes-content：键盘升起时连「布局视口」一起压，
+         而不是只压可视视口。不支持的浏览器由 ui/keyboard.ts 用 visualViewport 兜底，
+         两者不会重复计算（差值算出来是 0 时就不动作）。 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+    <meta name="theme-color" content="#0b0e13" />
+    <!--
+      主题必须在**第一帧之前**定下来。CSS 加载完成前 body 是浏览器默认的白底，
+      深色用户会先闪一下白 —— 这不是错觉，是 <link>/import 的加载时序造成的。
+      所以这段既不能外链（多一个请求就晚一帧），更不能读 IndexedDB
+      （异步，且首次冷启动时库还没建好）：只读 localStorage 那份镜像，见 native/theme.ts。
+      出错一律按深色兜底 = 0.6.7 及以前的观感。
+    -->
+    <script>
+      (function () {
+        try {
+          var mode = localStorage.getItem('app.theme') || 'system';
+          if (mode !== 'light' && mode !== 'dark') {
+            mode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', mode);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+    <!-- iOS 会把形似电话号码的数字串（营养数值、日期区间）自动变成蓝色电话链接，
+         点一下直接拨号。这个页面全是数字，必须关掉。 -->
+    <meta name="format-detection" content="telephone=no" />
+    <title>好好吃饭</title>
+    <meta
+      name="description"
+      content="拍照或一句话记一餐，自动算 19 项营养素，对比个人目标看日/周/月/季进度。数据只存在本机。"
+    />
+
+    <!-- PWA：可装到桌面，装完就是全屏，没有浏览器地址栏 -->
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="好好吃饭" />
+
+    <!--
+      首帧样式。四条纪律，改之前先看这里（完整理由见 tools/critical-css.ts 的注释，
+      那段不会被下载 —— 这里每多写一个字，每次冷启动就多传一个字节）。
+
+      ① `<style>` 里那行 CRITICAL 占位符由 tools/critical-css.ts 在 vite 的
+         transformIndexHtml 阶段替换成从 src/index.css 抽出的
+         :root / :root[data-theme='light'] + reset + 外壳（.app .main .hdr .tabbar）规则。
+         **别在这里手抄变量**：两份必漂，漂了就是「首帧闪一下旧配色」，
+         只在弱网冷启动且主题与上次不同时出现。要加规则去改 CRITICAL_SELECTORS。
+         本注释里不能出现那个占位符字符串本身（哪怕只是引用来解释）——
+         replace 会命中注释里那份，第一版就这么翻的车。
+
+      ② .boot-* 是 #root 里的静态骨架，createRoot().render() 首次提交会整体替换，
+         不需要任何清理逻辑。
+
+      ③ 骨架**故意不复用 .app / .main / .hdr / .tabbar / .card 这些真类名**：
+         tools/check-*.mjs 里有十几处 waitForSelector('.app')，
+         骨架戴上真类名会让「等真页面出来」的断言在骨架阶段就通过 = 验收工具静默失灵。
+
+      ④ 骨架只画「纸 + 一条 88×3 进度条」，**不画版式**。首帧时不知道用户会看到哪一屏
+         （未引导 → WelcomePage 无底栏；已引导 → Today 有底栏），画成今日页的骨架等于
+         说了两句话。完整骨架属于两段式第二段，由 React 挂载后再画。
+         依据：体验复核-V2.md §5「首帧骨架画什么」判据一 + U-06 + S-12。
+    -->
+    <style>
+      /*__CRITICAL_CSS__*/
+      /* .boot-* 的样式**不在**这里，在 src/index.css 的「加载骨架」段。
+         它由 tools/critical-css.ts 的 CRITICAL_SELECTORS 抽进上面那个内联块，
+         所以首帧同样生效 —— 但只写一份，不会漂。 */
+    </style>
+  </head>
+  <body>
+    <!-- 首帧：纸 + 进度条。createRoot().render() 会整体替换掉这段（无需清理逻辑）。
+         aria-hidden：这是装饰；读屏交给 React 挂载后自己的「正在准备本地数据…」 -->
+    <div id="root">
+      <div class="boot" aria-hidden="true">
+        <div class="boot-hdr"><span class="boot-bar"></span></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      浅色版（默认资源位）。深色版同名覆盖在 res/values-night/colors.xml。
+
+      为什么要拆两份而不是写死十六进制：AppTheme.NoActionBar 的 parent 是
+      Theme.AppCompat.DayNight.* —— 系统深色模式一开，AppCompat 会把
+      resources 的 uiMode 切成 UI_MODE_NIGHT_YES，**-night 资源自动生效**。
+      写死的话浅色下状态栏仍是深色一条，图标颜色也反着来。
+
+      取值必须和前端 index.css 的页面底色 / 前景色 / 品牌色对齐：
+      启动层是网页还没画出来的那 1.8 秒，两边不一致会看到明显的接缝。
+
+      ── alpha 写进颜色里 ────────────────────────────────────────
+      光晕 / 取景框 / 扫描光带 / 点阵 / 暖光这些是「同一支绿，不同浓淡」的层。
+      **浓淡不再散落在 Java 常量里，而是放进颜色资源的 alpha 通道**，原因有二：
+        ① 浅底和深底上同一支绿的合理浓淡不一样（深底 0.16 的光晕放到白底上
+           就是一坨绿雾）。以前 Java 里写死 0.16，浅色主题就跟着一起变成绿雾。
+        ② 设计稿工具 tools/render-splash.mjs 直接读这两个 XML 取色，
+           于是「稿子」和「APK 里跑的那版」用的是同一份数值，不可能对不上。
+      约定：Java 侧用 alphaOf(color) 取浓淡、color & 0xFFFFFF 取色相。
+    -->
+    <color name="win_bg">#f4f6fa</color>
+    <color name="sys_bar">#f4f6fa</color>
+
+    <color name="splash_bg">#f4f6fa</color>
+    <color name="splash_ink">#0f172a</color>
+    <color name="splash_ink_dim">#475569</color>
+    <!-- 启动层的品牌色在浅底上要压深：app 图标上那支荧光绿几乎看不见。
+         取值 = index.css 里浅色主题的 green 变量，保证启动层和界面里是同一个绿 -->
+    <color name="splash_brand">#15803d</color>
+    <!-- 右上角那团暖光：健康/生活感的来源，别换成中性灰。alpha = 浓淡 -->
+    <color name="splash_warm">#0dd97706</color>
+
+    <!-- 品牌光晕：中心 → 外圈两层 -->
+    <color name="splash_glow_core">#1a15803d</color>   <!-- 中心 0.10 -->
+    <color name="splash_glow_mid">#0915803d</color>    <!-- 外圈 0.035 -->
+
+    <!-- 取景框四角 / 扫描线 / 扫描光带 / 图标外发光 / 点阵 -->
+    <color name="splash_frame">#7315803d</color>      <!-- 取景框 0.45 -->
+    <color name="splash_scan">#8c15803d</color>       <!-- 扫描线 0.55 -->
+    <color name="splash_band">#3015803d</color>       <!-- 光带峰值 0.19（再乘扫描线浓淡） -->
+    <color name="splash_halo">#6b15803d</color>        <!-- 图标外发光 0.42 -->
+    <color name="splash_dot">#0e0f172a</color>        <!-- 点阵 0.055（墨色） -->
+</resources>

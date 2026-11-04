@@ -1,0 +1,9 @@
+{
+  "appId": "cn.dailyintake.app",
+  "appName": "好好吃饭",
+  "webDir": "dist",
+  "android": {
+    "adjustMarginsForEdgeToEdge": "disable"
+  },
+  "plugins": {}
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- 这里只放**浅色版**。同名样式在 values-night/styles.xml 里是深色版。
+         系统切到深色模式时 AppCompat（parent 是 Theme.AppCompat.DayNight.*）
+         会把 resources 的 uiMode 切成 UI_MODE_NIGHT_YES，-night 自动接管。
+
+         windowLightStatusBar=true 的含义很容易搞反：它是「我这背景是浅的，
+         请把状态栏图标画成深色」。浅色版必须给 true，深色版给 false。 -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@color/win_bg</item>
+        <item name="android:statusBarColor">@color/sys_bar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/sys_bar</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <!--
+      启动层（0.6.7 起是 MainActivity 里的一个覆盖 View，不再有独立 Activity）。
+      留着这条样式没有意义 —— 覆盖层的底色由 activity_splash.xml 自己画。
+      MainActivity 也不配主题：BridgeActivity 在 onCreate 里强制 setTheme。
+    -->
+</resources>

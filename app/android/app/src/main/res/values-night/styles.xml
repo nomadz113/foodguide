@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+      深色模式下的 MainActivity 主题，覆盖 values/styles.xml 的同名样式。
+
+      除了颜色，这里真正要改的是 **windowLightStatusBar / windowLightNavigationBar 取 false**：
+      它们是「背景是浅的」的意思，深底上必须 false，否则状态栏图标会被画成深色糊在黑底上。
+      这也是为什么不能只换 @color —— 图标颜色是跟属性值走的，不跟颜色走。
+    -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@color/win_bg</item>
+        <item name="android:statusBarColor">@color/sys_bar</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/sys_bar</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+</resources>

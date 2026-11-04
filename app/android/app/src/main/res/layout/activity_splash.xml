@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  启动屏（0.8.8 重做）。
+
+  构图分三层，各管一件事：
+  1. SplashView 只画主视觉 —— 暖光 / 点阵 / 取景框 / 扫描线 / 轨道 / 图标。
+     图标和扫描线必须同源（扫描范围要盖住图标），所以它们必须共用一组坐标。
+  2. 这一份布局负责所有**文字**与三个能力图标。
+     文字不画进 Canvas：交给系统排版，字重、行高和系统字体缩放（无障碍）才正常。
+  3. 心电线是一个独立的 View（SplashEcgView），放在文字流里。
+     它夹在能力行和底部说明之间，位置由布局决定 —— 写死屏高比例的话，
+     系统字体放大后文字块变高，线就会压到字上。
+
+  为什么不用 Android 12 的 Theme.SplashScreen：那套 API 只接受图标和背景色，
+  **没有放文字的位置**（windowSplashScreenAnimatedIcon 只能给图标，而且图标会被
+  圆形遮罩裁掉两侧，把文字画进图片里也行不通）。要在点开图标那一瞬间就显示字，
+  只能自己铺一个 Activity + 布局。
+
+  文字的纵向位置不写死在 XML：屏高比例（55.6%）由 MainActivity 在测量完成后
+  设进 topMargin，写死 dp 会在 16:9 和 20:9 之间漂。
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/splash_bg">
+
+    <cn.dailyintake.app.SplashView
+        android:id="@+id/splashArt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 初始 alpha=0：topMargin 要等测量完才设，先藏起来，避免首帧文字闪在顶部 -->
+    <LinearLayout
+        android:id="@+id/splashText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:alpha="0"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- 主标语：全屏最大的字，也是唯一一句「完整的话」 -->
+        <TextView
+            android:id="@+id/splashSlogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:letterSpacing="-0.02"
+            android:maxLines="1"
+            android:text="@string/splash_slogan"
+            android:textColor="@color/splash_ink"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <!-- 产品名：小字 + 大字距，做「署名」而不是第二行标题。
+             和标语同时读出两个「指南」会重复，所以它压到 10.5sp、颜色降一档 -->
+        <TextView
+            android:id="@+id/splashBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.32"
+            android:text="@string/splash_brand"
+            android:textColor="@color/splash_ink_dim"
+            android:textSize="10.5sp" />
+
+        <!-- 三个能力 = 一条流水线：拍 → 认 → 建议。
+             中间那根短线是「流向」，不是分隔符；所以它比文字更淡。 -->
+        <LinearLayout
+            android:id="@+id/splashFeats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/splashIcon1"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_splash_camera"
+                app:tint="@color/splash_brand" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:includeFontPadding="false"
+                android:text="@string/splash_feat_capture"
+                android:textColor="@color/splash_ink_dim"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="19dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="9dp"
+                android:alpha="0.3"
+                android:background="@color/splash_brand" />
+
+            <ImageView
+                android:id="@+id/splashIcon2"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_splash_ai"
+                app:tint="@color/splash_brand" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:includeFontPadding="false"
+                android:text="@string/splash_feat_ai"
+                android:textColor="@color/splash_ink_dim"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="19dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="9dp"
+                android:alpha="0.3"
+                android:background="@color/splash_brand" />
+
+            <ImageView
+                android:id="@+id/splashIcon3"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_splash_health"
+                app:tint="@color/splash_brand" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:includeFontPadding="false"
+                android:text="@string/splash_feat_advice"
+                android:textColor="@color/splash_ink_dim"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+        <!-- 心电分隔线：健康 / 健身的符号，同时充当版式分割 -->
+        <cn.dailyintake.app.SplashEcgView
+            android:id="@+id/splashEcg"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginTop="20dp"
+            android:paddingStart="23dp"
+            android:paddingEnd="23dp" />
+
+        <!-- 底部一句实话：本地存储、可离线。它不是卖点，是「这个 App 值得装」的理由之一 -->
+        <TextView
+            android:id="@+id/splashTrust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.05"
+            android:text="@string/splash_trust"
+            android:textColor="@color/splash_ink_dim"
+            android:textSize="9sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  启动屏能力图标 · 拍照
+  线宽 1.7 是按 24 的 viewbox 定的：缩到 22dp 后视觉线宽约 1.56dp，
+  和标题字重（bold）比是「细一档」，不会喧宾夺主。
+  颜色一律画成纯黑，由 ImageView 的 tint 上色 —— 深浅两套只在 colors.xml 里改。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:pathData="M2.9,10.8 A3.6,3.6 0 0 1 6.5,7.2 H17.5 A3.6,3.6 0 0 1 21.1,10.8 V17 A3.6,3.6 0 0 1 17.5,20.6 H6.5 A3.6,3.6 0 0 1 2.9,17 Z"
+        android:strokeColor="#FF000000"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.7" />
+
+    <path
+        android:pathData="M8.6,7.2 V5.7 A1.7,1.7 0 0 1 10.3,4 H13.7 A1.7,1.7 0 0 1 15.4,5.7 V7.2"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.7" />
+
+    <path
+        android:pathData="M8.3,13.9 a3.7,3.7 0 1 0 7.4,0 a3.7,3.7 0 1 0 -7.4,0"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.7" />
+</vector>

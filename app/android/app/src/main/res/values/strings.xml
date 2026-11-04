@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">好好吃饭</string>
+    <string name="title_activity_main">好好吃饭</string>
+    <string name="package_name">cn.dailyintake.app</string>
+    <string name="custom_url_scheme">cn.dailyintake.app</string>
+
+    <!-- 启动屏文案。改这里就够了，布局和颜色都不用动 -->
+    <string name="splash_slogan">好好吃饭，吃对每一餐</string>
+    <string name="splash_brand">EAT WELL</string>
+    <string name="splash_feat_capture">拍照记录</string>
+    <string name="splash_feat_ai">AI 识别</string>
+    <string name="splash_feat_advice">健康建议</string>
+    <string name="splash_trust">数据只存本机 · 离线可用 · 无需登录</string>
+</resources>

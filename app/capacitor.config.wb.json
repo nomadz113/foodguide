@@ -1,0 +1,13 @@
+{
+  "appId": "cn.dailyintake.app",
+  "appName": "好好吃饭",
+  "webDir": "dist",
+  "server": {
+    "url": "https://daily-intake.app.workbuddy.host/?sharecode=S7TQGVBK2V",
+    "androidScheme": "https"
+  },
+  "android": {
+    "adjustMarginsForEdgeToEdge": "force"
+  },
+  "plugins": {}
+}

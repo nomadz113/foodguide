@@ -1,0 +1,1506 @@
+{
+ "360-base-today": {
+  "mgrid": {
+   "gridW": 298,
+   "gap": "12px 6px",
+   "cellW": 37.4,
+   "cellH": 45.4,
+   "rows": 2,
+   "gridH": 102.8,
+   "niacinLbW": 24,
+   "niacinLbLines": 1,
+   "maxLbW": 24,
+   "anyLbWrap": false,
+   "anyVvWrap": false,
+   "cellWTight": [
+    16.3,
+    20.5,
+    20.5,
+    23.3,
+    16.3,
+    23.3,
+    13.4,
+    24.5,
+    24.5,
+    24.5,
+    13.4,
+    13.4,
+    13.4,
+    20.5
+   ],
+   "dotBox": {
+    "w": 7,
+    "shadow": "none"
+   },
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px"
+  },
+  "lbs7": null,
+  "lbs30": null,
+  "macro3": {
+   "colW": 95.3,
+   "spanW": 36,
+   "spanLines": 1,
+   "h": 51.7
+  },
+  "badge": {
+   "w": 38,
+   "h": 20,
+   "textW": 24,
+   "font": "12px"
+  },
+  "planline": {
+   "w": 218,
+   "h": 31.4,
+   "lines": 1
+  },
+  "taps": {
+   ".meal .del": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px -4px -2px 0px",
+    "font": "16px"
+   },
+   ".meal .edit": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px 0px -2px -4px",
+    "font": "16px"
+   },
+   ".adv-btn": {
+    "w": 72,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "360-base-stats": {
+  "lbs7": {
+   "n": 7,
+   "colW": 38.28,
+   "rowH": 15.6,
+   "textW": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "maxTextW": 12,
+   "overflowPx": -26.3,
+   "labeledCount": 7,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "hidden"
+  },
+  "lbs30": {
+   "n": 30,
+   "colW": 8,
+   "rowH": 15.6,
+   "textW": [
+    7,
+    14.1,
+    14.1,
+    14.1,
+    14.1,
+    14.1
+   ],
+   "maxTextW": 14.1,
+   "overflowPx": 6.1,
+   "labeledCount": 6,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "visible"
+  },
+  "cval": {
+   "textW": 27.7,
+   "barW": 38.3,
+   "slotW": 38.3,
+   "barH": 19.2,
+   "cvalLineH": 12,
+   "overflowsBar": -10.6,
+   "fontSize": "12px"
+  },
+  "taps": {
+   ".ptabs button": {
+    "w": 31.7,
+    "h": 32.2,
+    "hasBefore": true,
+    "beforeInset": "-5px -8px -7px",
+    "font": "16px"
+   },
+   ".seg button": {
+    "w": 41.3,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px 0px",
+    "font": "12px"
+   },
+   ".period-nav button": {
+    "w": 65.8,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px -6px",
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "pseudoOverlap": {
+   "sameRow": false,
+   "gapPx": 8
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 10,
+   "minFontSel": "SPAN",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": [
+    "SPAN:10"
+   ]
+  }
+ },
+ "360-base-capture": {
+  "lbs7": null,
+  "lbs30": null,
+  "src": {
+   "rowW": 300,
+   "nameBoxW": 78,
+   "nameTextW": 78,
+   "nameClipped": false,
+   "srcW": 86.9,
+   "srcTextW": 74.9,
+   "srcH": 19.4,
+   "rightW": 85.6,
+   "rowH": 32.4,
+   "srcFont": "12px"
+  },
+  "chip": {
+   "w": 54,
+   "h": 25.4
+  },
+  "taps": {
+   ".selitem .rm": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".stepper button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".suggest button": {
+    "w": 73.3,
+    "h": 36,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn": {
+    "w": 125,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".fold > button": {
+    "w": 326,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn-save": {
+    "w": 96,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tiers3 button": {
+    "w": 78.7,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".searchbox input": {
+    "w": 300,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "360-base-welcome": {
+  "lbs7": null,
+  "lbs30": null,
+  "taps": {
+   ".wback": {
+    "w": 80,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".wnext": {
+    "w": 199,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "15px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "focusRing": {
+   "docScrollW": 360,
+   "viewW": 360,
+   "horizontalScroll": false,
+   "fieldRight": 324,
+   "shadow": "rgba(74, 107, 36, 0.26) 0px 0px 0px 3px",
+   "fieldMarginRight": 36
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "360-v2-today": {
+  "mgrid": {
+   "gridW": 298,
+   "gap": "8px",
+   "cellW": 35.7,
+   "cellH": 45.4,
+   "rows": 2,
+   "gridH": 98.8,
+   "niacinLbW": 24,
+   "niacinLbLines": 1,
+   "maxLbW": 24,
+   "anyLbWrap": false,
+   "anyVvWrap": false,
+   "cellWTight": [
+    14.6,
+    18.8,
+    18.8,
+    21.6,
+    14.6,
+    21.6,
+    11.7,
+    22.7,
+    22.8,
+    22.8,
+    11.7,
+    11.7,
+    11.7,
+    18.8
+   ],
+   "dotBox": {
+    "w": 7,
+    "shadow": "none"
+   },
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px"
+  },
+  "lbs7": null,
+  "lbs30": null,
+  "macro3": {
+   "colW": 95.3,
+   "spanW": 36,
+   "spanLines": 1,
+   "h": 51.7
+  },
+  "badge": {
+   "w": 40,
+   "h": 20,
+   "textW": 24,
+   "font": "12px"
+  },
+  "planline": {
+   "w": 218,
+   "h": 31.4,
+   "lines": 1
+  },
+  "taps": {
+   ".meal .del": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px -4px -2px 0px",
+    "font": "16px"
+   },
+   ".meal .edit": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px 0px -2px -4px",
+    "font": "16px"
+   },
+   ".adv-btn": {
+    "w": 72,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "360-v2-stats": {
+  "lbs7": {
+   "n": 7,
+   "colW": 38.28,
+   "rowH": 15.6,
+   "textW": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "maxTextW": 12,
+   "overflowPx": -26.3,
+   "labeledCount": 7,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "hidden"
+  },
+  "lbs30": {
+   "n": 30,
+   "colW": 8,
+   "rowH": 15.6,
+   "textW": [
+    7,
+    14.1,
+    14.1,
+    14.1,
+    14.1,
+    14.1
+   ],
+   "maxTextW": 14.1,
+   "overflowPx": 6.1,
+   "labeledCount": 6,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "visible"
+  },
+  "cval": {
+   "textW": 27.7,
+   "barW": 38.3,
+   "slotW": 38.3,
+   "barH": 19.2,
+   "cvalLineH": 12,
+   "overflowsBar": -10.6,
+   "fontSize": "12px"
+  },
+  "taps": {
+   ".ptabs button": {
+    "w": 31.7,
+    "h": 32.2,
+    "hasBefore": true,
+    "beforeInset": "-5px -8px -7px",
+    "font": "16px"
+   },
+   ".seg button": {
+    "w": 41.3,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px 0px",
+    "font": "12px"
+   },
+   ".period-nav button": {
+    "w": 65.8,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px -6px",
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "pseudoOverlap": {
+   "sameRow": false,
+   "gapPx": 8
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 10,
+   "minFontSel": "SPAN",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": [
+    "SPAN:10"
+   ]
+  }
+ },
+ "360-v2-capture": {
+  "lbs7": null,
+  "lbs30": null,
+  "src": {
+   "rowW": 300,
+   "nameBoxW": 78,
+   "nameTextW": 78,
+   "nameClipped": false,
+   "srcW": 86.9,
+   "srcTextW": 74.9,
+   "srcH": 19.4,
+   "rightW": 85.6,
+   "rowH": 32.4,
+   "srcFont": "12px"
+  },
+  "chip": {
+   "w": 54,
+   "h": 24.4
+  },
+  "taps": {
+   ".selitem .rm": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".stepper button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".suggest button": {
+    "w": 73.3,
+    "h": 36,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn": {
+    "w": 125,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".fold > button": {
+    "w": 326,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn-save": {
+    "w": 96,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tiers3 button": {
+    "w": 78.7,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".searchbox input": {
+    "w": 300,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "360-v2-welcome": {
+  "lbs7": null,
+  "lbs30": null,
+  "taps": {
+   ".wback": {
+    "w": 80,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".wnext": {
+    "w": 199,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "15px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 74.5,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "focusRing": {
+   "docScrollW": 360,
+   "viewW": 360,
+   "horizontalScroll": false,
+   "fieldRight": 324,
+   "shadow": "rgba(74, 107, 36, 0.26) 0px 0px 0px 3px",
+   "fieldMarginRight": 36
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "390-base-today": {
+  "mgrid": {
+   "gridW": 328,
+   "gap": "12px 6px",
+   "cellW": 41.7,
+   "cellH": 45.4,
+   "rows": 2,
+   "gridH": 102.8,
+   "niacinLbW": 24,
+   "niacinLbLines": 1,
+   "maxLbW": 24,
+   "anyLbWrap": false,
+   "anyVvWrap": false,
+   "cellWTight": [
+    20.6,
+    24.8,
+    24.8,
+    27.6,
+    20.6,
+    27.6,
+    17.7,
+    28.7,
+    28.8,
+    28.8,
+    17.7,
+    17.7,
+    17.7,
+    24.8
+   ],
+   "dotBox": {
+    "w": 7,
+    "shadow": "none"
+   },
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px"
+  },
+  "lbs7": null,
+  "lbs30": null,
+  "macro3": {
+   "colW": 105.3,
+   "spanW": 36,
+   "spanLines": 1,
+   "h": 51.7
+  },
+  "badge": {
+   "w": 38,
+   "h": 20,
+   "textW": 24,
+   "font": "12px"
+  },
+  "planline": {
+   "w": 248,
+   "h": 31.4,
+   "lines": 1
+  },
+  "taps": {
+   ".meal .del": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px -4px -2px 0px",
+    "font": "16px"
+   },
+   ".meal .edit": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px 0px -2px -4px",
+    "font": "16px"
+   },
+   ".adv-btn": {
+    "w": 72,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "390-base-stats": {
+  "lbs7": {
+   "n": 7,
+   "colW": 42.56,
+   "rowH": 15.6,
+   "textW": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "maxTextW": 12,
+   "overflowPx": -30.6,
+   "labeledCount": 7,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "hidden"
+  },
+  "lbs30": {
+   "n": 30,
+   "colW": 9,
+   "rowH": 15.6,
+   "textW": [
+    7,
+    14.1,
+    14.1,
+    14.1,
+    14.1,
+    14.1
+   ],
+   "maxTextW": 14.1,
+   "overflowPx": 5.1,
+   "labeledCount": 6,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "visible"
+  },
+  "cval": {
+   "textW": 27.7,
+   "barW": 42.6,
+   "slotW": 42.6,
+   "barH": 19.2,
+   "cvalLineH": 12,
+   "overflowsBar": -14.9,
+   "fontSize": "12px"
+  },
+  "taps": {
+   ".ptabs button": {
+    "w": 31.7,
+    "h": 32.2,
+    "hasBefore": true,
+    "beforeInset": "-5px -8px -7px",
+    "font": "16px"
+   },
+   ".seg button": {
+    "w": 41.3,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px 0px",
+    "font": "12px"
+   },
+   ".period-nav button": {
+    "w": 65.8,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px -6px",
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "pseudoOverlap": {
+   "sameRow": false,
+   "gapPx": 8
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 10,
+   "minFontSel": "SPAN",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": [
+    "SPAN:10"
+   ]
+  }
+ },
+ "390-base-capture": {
+  "lbs7": null,
+  "lbs30": null,
+  "src": {
+   "rowW": 330,
+   "nameBoxW": 78,
+   "nameTextW": 78,
+   "nameClipped": false,
+   "srcW": 86.9,
+   "srcTextW": 74.9,
+   "srcH": 19.4,
+   "rightW": 85.6,
+   "rowH": 32.4,
+   "srcFont": "12px"
+  },
+  "chip": {
+   "w": 54,
+   "h": 25.4
+  },
+  "taps": {
+   ".selitem .rm": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".stepper button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".suggest button": {
+    "w": 73.3,
+    "h": 36,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn": {
+    "w": 137.8,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".fold > button": {
+    "w": 356,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn-save": {
+    "w": 96,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tiers3 button": {
+    "w": 88.7,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".searchbox input": {
+    "w": 330,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "390-base-welcome": {
+  "lbs7": null,
+  "lbs30": null,
+  "taps": {
+   ".wback": {
+    "w": 80,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".wnext": {
+    "w": 229,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "15px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "focusRing": {
+   "docScrollW": 390,
+   "viewW": 390,
+   "horizontalScroll": false,
+   "fieldRight": 354,
+   "shadow": "rgba(74, 107, 36, 0.26) 0px 0px 0px 3px",
+   "fieldMarginRight": 36
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "390-v2-today": {
+  "mgrid": {
+   "gridW": 328,
+   "gap": "8px",
+   "cellW": 40,
+   "cellH": 45.4,
+   "rows": 2,
+   "gridH": 98.8,
+   "niacinLbW": 24,
+   "niacinLbLines": 1,
+   "maxLbW": 24,
+   "anyLbWrap": false,
+   "anyVvWrap": false,
+   "cellWTight": [
+    18.9,
+    23,
+    23,
+    25.9,
+    18.9,
+    25.9,
+    16,
+    27,
+    27,
+    27,
+    16,
+    16,
+    16,
+    23
+   ],
+   "dotBox": {
+    "w": 7,
+    "shadow": "none"
+   },
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px"
+  },
+  "lbs7": null,
+  "lbs30": null,
+  "macro3": {
+   "colW": 105.3,
+   "spanW": 36,
+   "spanLines": 1,
+   "h": 51.7
+  },
+  "badge": {
+   "w": 40,
+   "h": 20,
+   "textW": 24,
+   "font": "12px"
+  },
+  "planline": {
+   "w": 248,
+   "h": 31.4,
+   "lines": 1
+  },
+  "taps": {
+   ".meal .del": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px -4px -2px 0px",
+    "font": "16px"
+   },
+   ".meal .edit": {
+    "w": 40,
+    "h": 40,
+    "hasBefore": true,
+    "beforeInset": "-2px 0px -2px -4px",
+    "font": "16px"
+   },
+   ".adv-btn": {
+    "w": 72,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "390-v2-stats": {
+  "lbs7": {
+   "n": 7,
+   "colW": 42.56,
+   "rowH": 15.6,
+   "textW": [
+    12,
+    12,
+    12,
+    12,
+    12,
+    12,
+    12
+   ],
+   "maxTextW": 12,
+   "overflowPx": -30.6,
+   "labeledCount": 7,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "hidden"
+  },
+  "lbs30": {
+   "n": 30,
+   "colW": 9,
+   "rowH": 15.6,
+   "textW": [
+    7,
+    14.1,
+    14.1,
+    14.1,
+    14.1,
+    14.1
+   ],
+   "maxTextW": 14.1,
+   "overflowPx": 5.1,
+   "labeledCount": 6,
+   "pairOverlapPx": 0,
+   "worstPair": null,
+   "overflowStyle": "visible"
+  },
+  "cval": {
+   "textW": 27.7,
+   "barW": 42.6,
+   "slotW": 42.6,
+   "barH": 19.2,
+   "cvalLineH": 12,
+   "overflowsBar": -14.9,
+   "fontSize": "12px"
+  },
+  "taps": {
+   ".ptabs button": {
+    "w": 31.7,
+    "h": 32.2,
+    "hasBefore": true,
+    "beforeInset": "-5px -8px -7px",
+    "font": "16px"
+   },
+   ".seg button": {
+    "w": 41.3,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px 0px",
+    "font": "12px"
+   },
+   ".period-nav button": {
+    "w": 65.8,
+    "h": 36,
+    "hasBefore": true,
+    "beforeInset": "-4px -6px",
+    "font": "12px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "pseudoOverlap": {
+   "sameRow": false,
+   "gapPx": 8
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 10,
+   "minFontSel": "SPAN",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": [
+    "SPAN:10"
+   ]
+  }
+ },
+ "390-v2-capture": {
+  "lbs7": null,
+  "lbs30": null,
+  "src": {
+   "rowW": 330,
+   "nameBoxW": 78,
+   "nameTextW": 78,
+   "nameClipped": false,
+   "srcW": 86.9,
+   "srcTextW": 74.9,
+   "srcH": 19.4,
+   "rightW": 85.6,
+   "rowH": 32.4,
+   "srcFont": "12px"
+  },
+  "chip": {
+   "w": 54,
+   "h": 24.4
+  },
+  "taps": {
+   ".selitem .rm": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".stepper button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "16px"
+   },
+   ".suggest button": {
+    "w": 73.3,
+    "h": 36,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn": {
+    "w": 137.8,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".fold > button": {
+    "w": 356,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".btn-save": {
+    "w": 96,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".tiers3 button": {
+    "w": 88.7,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   },
+   ".searchbox input": {
+    "w": 330,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   }
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ },
+ "390-v2-welcome": {
+  "lbs7": null,
+  "lbs30": null,
+  "taps": {
+   ".wback": {
+    "w": 80,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".wnext": {
+    "w": 229,
+    "h": 48,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "15px"
+   },
+   ".tabbar .fab button": {
+    "w": 44,
+    "h": 44,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "14px"
+   },
+   ".tabbar a": {
+    "w": 82,
+    "h": 55.4,
+    "hasBefore": false,
+    "beforeInset": null,
+    "font": "12px"
+   }
+  },
+  "focusRing": {
+   "docScrollW": 390,
+   "viewW": 390,
+   "horizontalScroll": false,
+   "fieldRight": 354,
+   "shadow": "rgba(74, 107, 36, 0.26) 0px 0px 0px 3px",
+   "fieldMarginRight": 36
+  },
+  "tabbar": {
+   "bg": "rgba(250, 245, 236, 0.97)",
+   "shellBgVar": "rgba(250, 245, 236, 0.97)",
+   "backdrop": "none",
+   "borderTop": "1px solid",
+   "h": 56.4
+  },
+  "typography": {
+   "minFontSize": 12,
+   "minFontSel": "sub",
+   "maxFontWeight": 500,
+   "maxFwSel": "H1",
+   "underTwelve": []
+  }
+ }
+}

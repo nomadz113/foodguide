@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 深色版，同名覆盖 values/colors.xml。说明见 values/colors.xml -->
+    <color name="win_bg">#0b0e13</color>
+    <color name="sys_bar">#0b0e13</color>
+
+    <color name="splash_bg">#0b0e13</color>
+    <color name="splash_ink">#e9eef6</color>
+    <color name="splash_ink_dim">#8d99ab</color>
+    <color name="splash_brand">#4ade80</color>
+    <color name="splash_warm">#0efbbf24</color>
+
+    <!-- 深底上荧光绿是主角，浓淡比浅色版高一档 -->
+    <color name="splash_glow_core">#294ade80</color>   <!-- 中心 0.16 -->
+    <color name="splash_glow_mid">#0e4ade80</color>    <!-- 外圈 0.055 -->
+
+    <color name="splash_frame">#804ade80</color>      <!-- 取景框 0.50 -->
+    <color name="splash_scan">#9e4ade80</color>       <!-- 扫描线 0.62 -->
+    <color name="splash_band">#304ade80</color>       <!-- 光带峰值 0.19 -->
+    <color name="splash_halo">#6b4ade80</color>        <!-- 图标外发光 0.42 -->
+    <color name="splash_dot">#08e9eef6</color>        <!-- 点阵 0.031（亮色） -->
+</resources>
