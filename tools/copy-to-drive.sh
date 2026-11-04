@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # 把「迁移包」和「.toolchain」拷到 U 盘/移动硬盘，并逐项核对（数量 + 总字节数）。
 #
-#   bash tools/copy-to-drive.sh /g           # G 盘（Git Bash 里写成 /g）
-#   bash tools/copy-to-drive.sh /g --check   # 只核对，不拷贝
+#   bash tools/copy-to-drive.sh /h/临时目录        # 目标目录（Git Bash 写法）
+#   bash tools/copy-to-drive.sh /h/临时目录 --check # 只核对，不拷贝
 #
-# 目标盘会新建一个目录：好好吃饭-迁移-YYYYMMDD/
+# 会在目标目录下建「好好吃饭-迁移」，里面直接放 迁移包/ 和 .toolchain/
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -20,7 +20,7 @@ if [ ! -d "$DEST_ROOT" ]; then
   exit 1
 fi
 
-DEST="$DEST_ROOT/好好吃饭-迁移-$(date +%Y%m%d)"
+DEST="$DEST_ROOT/好好吃饭-迁移"
 
 count_files() { find "$1" -type f 2>/dev/null | wc -l; }
 count_bytes() { du -sb "$1" 2>/dev/null | cut -f1; }
