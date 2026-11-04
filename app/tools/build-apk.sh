@@ -49,6 +49,12 @@ export GRADLE_USER_HOME="$(cygpath -w "$TOOL/gradle-home")"
 
 cd "$APP_DIR"
 
+# local.properties 存的是 SDK 绝对路径，换机/换盘符后必然失效，Gradle 会直接报
+# 「SDK location not found」。每次构建都按当前工具链重写，省掉手工改。
+printf 'sdk.dir=%s\n' \
+  "$(cygpath -w "$TOOL/sdk" | sed -e 's/\\/\\\\/g' -e 's/:/\\:/g')" \
+  > "$APP_DIR/android/local.properties"
+
 # 在线版先确认线上真的活着，别打出一个指向挂掉地址的包
 if [ "$MODE" != "offline" ]; then
   LIVE_URL="$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('capacitor.config.wb.json','utf8')).server.url)")"

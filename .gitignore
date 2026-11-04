@@ -32,7 +32,9 @@ android/keystore/
 性能基线-*.md
 改名方案-*.md
 华为健康接入-路线图.md
+photo-audit.html
 .workbuddy/
+迁移包/
 
 # ---- 内部平台配置（公众不适用）----
 app/android/local.properties
