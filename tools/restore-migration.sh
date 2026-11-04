@@ -34,7 +34,16 @@ if [ -f "$PKG/keystore/debug.keystore.bak" ]; then
     echo "  已备份本机原证书为 debug.keystore.this-machine.bak"
   fi
   cp "$PKG/keystore/debug.keystore.bak" "$HOME/.android/debug.keystore"
-  echo "  已恢复统一签名证书（md5 $(md5sum "$HOME/.android/debug.keystore" | cut -d' ' -f1)）"
+  # 用 stdin 喂 md5sum：文件名含反斜杠时（如 Windows 的 %TEMP% 路径）它会输出
+  # "\<hash> *<path>"，带转义前缀，会搅乱 Red line 比对（必须等于 1d1613ec...）
+  echo "  已恢复统一签名证书（md5 $(md5sum < "$HOME/.android/debug.keystore" | cut -d' ' -f1)）"
+
+  # 回写项目：pack-migration.sh 取证书的路径是 app/android/keystore/，不写回去的话
+  # 这台机器下次跑 pack-migration.sh 会报「缺少证书」，打出一个装不上手机的迁移包。
+  # 该路径被 .gitignore 的 *.keystore.* 拦住，不会进公开仓库。
+  mkdir -p "$ROOT/app/android/keystore"
+  cp "$HOME/.android/debug.keystore" "$ROOT/app/android/keystore/debug.keystore.bak"
+  echo "  已回写 app/android/keystore/debug.keystore.bak（供 pack-migration.sh 使用）"
 else
   echo "  ⚠ 迁移包里没有证书，打出的 APK 手机将无法覆盖安装" >&2
 fi
