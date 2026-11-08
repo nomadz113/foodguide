@@ -332,6 +332,9 @@ input, select { background: none; border: 0; outline: none; }
 html.ios-standalone .app { padding-top: env(safe-area-inset-top, 0px); }
 .main { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 28px; }
 .main.center { display: flex; align-items: center; justify-content: center; color: var(--mute); }
+/* 统计页：横向手势归 JS（左右滑切分区），纵向仍然交给浏览器滚动。
+   不写 pinch-zoom 会顺手把双指缩放也禁掉 —— iOS 上等于锁死整页放大。 */
+.main.swipe { touch-action: pan-y pinch-zoom; }
 
 /* ── 顶部 ── */
 /* h1 22/750 → 24/500、sub 11 → 12：整条高度 68.3 → 72px。
@@ -434,6 +437,19 @@ html.ios-standalone .app { padding-top: env(safe-area-inset-top, 0px); }
   font-size: var(--fs-body);
 }
 .btn-ghost-wide:active { background: var(--card2); }
+
+/* 「展开更早的 N 条」：比 .btn-ghost-wide 再轻一档 —— 它和「记一餐」上下相邻，
+   两个实线描边同宽按钮并排会让人以为都是主操作。虚线 = 可展开/占位语义，
+   和卡片里「未确认」用虚线是同一套第二线索（不靠颜色深浅）。 */
+.more-btn {
+  width: 100%; min-height: var(--tap-min); margin-top: 2px;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  border-radius: var(--radius-block); border: 1px dashed var(--line);
+  background: none; color: var(--dim); font-size: var(--fs-caption);
+}
+.more-btn .chev { display: flex; color: var(--mute); transition: transform .18s; }
+.more-btn.open .chev { transform: rotate(180deg); }
+.more-btn:active { background: var(--card2); }
 
 /* 空态撑满可用高度并垂直居中：否则两个按钮贴在上半屏，下半屏一片空，像没加载出来。
    和 .chat-empty 同一个做法。 */

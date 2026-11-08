@@ -240,7 +240,7 @@ describe('周期汇总', () => {
 });
 
 describe('体重趋势', () => {
-  it('7 日移动平均把单日的水分尖峰压下去', () => {
+  it('30 日移动平均把单日的水分尖峰压下去', () => {
     const entries = [
       weigh('2026-10-01', 78.0), weigh('2026-10-02', 78.2), weigh('2026-10-03', 79.4),
       weigh('2026-10-04', 78.3), weigh('2026-10-05', 78.1),
@@ -253,10 +253,17 @@ describe('体重趋势', () => {
     expect(Math.abs(spike.ma! - 78.2)).toBeLessThan(Math.abs(spike.raw! - 78.2));
   });
 
-  it('移动平均窗口是 7 天，8 天前的称重不参与', () => {
-    const entries = [weigh('2026-10-01', 90), weigh('2026-10-09', 80)];
+  it('移动平均窗口是 30 天，31 天前的称重不参与', () => {
+    const entries = [weigh('2026-10-01', 90), weigh('2026-10-31', 80)];
     const pts = smoothWeights(entries);
     expect(pts[1]!.ma).toBe(80);
+  });
+
+  it('30 天内的称重都进同一窗口 —— 窗口不是 7 天', () => {
+    const entries = [weigh('2026-10-01', 90), weigh('2026-10-09', 80)];
+    const pts = smoothWeights(entries);
+    // 7 日窗口时这里是 80（8 天前被排除）；30 日窗口下两个点都要平均
+    expect(pts[1]!.ma).toBe(85);
   });
 
   it('称重少于 2 次没有实际变化可算', () => {
@@ -272,5 +279,19 @@ describe('体重趋势', () => {
     expect(ch.method).toBe('ma');
     expect(ch.deltaKg).toBeLessThan(0);
     expect(ch.points).toBe(4);
+  });
+
+  it('实际变化的平滑用窗口前的称重，不是只用窗口内那几条重算', () => {
+    // 窗口 20~22 三天都是 78，窗口前三天都是 80 —— 只用窗口内平滑会得到 delta = 0
+    const entries = [
+      weigh('2026-10-17', 80), weigh('2026-10-18', 80), weigh('2026-10-19', 80),
+      weigh('2026-10-20', 78), weigh('2026-10-21', 78), weigh('2026-10-22', 78),
+    ];
+    const ch = weightChange(entries, '2026-10-20', '2026-10-22')!;
+    expect(ch.method).toBe('ma');
+    // 起始 MA = (80×3 + 78)/4 = 79.5，结束 MA = (80×3 + 78×3)/6 = 79
+    expect(ch.from).toBeCloseTo(79.5, 5);
+    expect(ch.to).toBeCloseTo(79, 5);
+    expect(ch.deltaKg).toBeCloseTo(-0.5, 5);
   });
 });

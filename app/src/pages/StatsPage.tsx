@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { PeriodSeg, SEG_WIDTH } from '../ui/PeriodSeg';
+import { useSwipeTab } from '../ui/swipe';
 import { useDietStats } from './stats/useDietStats';
 import { useBpStats } from './stats/useBpStats';
 import { DietStats } from './stats/DietStats';
@@ -41,6 +42,18 @@ export function StatsPage() {
    */
   const pick = (t: Tab) =>
     setSp(t === 'diet' ? {} : { tab: t }, { replace: true });
+
+  /**
+   * 左右滑动切分区。顺序与 Tab 一致：饮食在左、血压在右，
+   * 所以右滑回饮食、左滑去血压 —— 和系统里「左滑翻到下一页」同向。
+   *
+   * 已经在边界上就什么都不做：从血压继续左滑不该跳到别处（本页只有两个分区）。
+   * 判定逻辑（主轴、位移、时长）全在 ui/swipe.ts，这里只负责「往哪走」。
+   */
+  const swipe = useSwipeTab(
+    () => { if (tab === 'bp') pick('diet'); },
+    () => { if (tab === 'diet') pick('bp'); },
+  );
 
   return (
     <>
@@ -84,8 +97,11 @@ export function StatsPage() {
       </div>
 
       {/* key={tab}：切分区时重建滚动容器，把上一次的滚动位置归零。
-          没有它，从血压分区底部切到饮食分区会落在中段的某张卡片上。 */}
-      <div className="main" key={tab}>
+          没有它，从血压分区底部切到饮食分区会落在中段的某张卡片上。
+
+          滑动手势挂在滚动容器上而不是整页：手指落在这里才算「在内容上滑」，
+          页头的 Tab 与周期胶囊保持纯点击（`.main.swipe` 里 touch-action 放行纵向滚动）。 */}
+      <div className="main swipe" key={tab} {...swipe}>
         {tab === 'diet'
           ? (diet.view ? <DietStats st={diet} /> : <RegionSkeleton />)
           : (bp.view ? <BpStats st={bp} /> : <RegionSkeleton />)}

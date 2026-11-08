@@ -10,7 +10,7 @@ import {
 import { SLOT_LABELS, slotTotals, sumMeals } from '../core/meal/build';
 import { localAdvice } from '../core/advice/local';
 import { formatClock, formatDayLabel } from '../core/date';
-import type { MealSlot } from '../core/db/types';
+import type { Meal, MealSlot } from '../core/db/types';
 import type { NutrientKey } from '../core/nutrition/types';
 import { useAppData } from '../store/AppData';
 import { Ring } from '../ui/Ring';
@@ -36,6 +36,25 @@ const SLOT_ICON: Record<MealSlot, ComponentType<{ size?: number }>> = {
 /** 带符号的整数：差值必须能看出方向，只写绝对值会被读反 */
 const signed = (n: number) => `${n > 0 ? '+' : ''}${n}`;
 
+/** 今日记录默认展开的条数，其余折起 */
+const RECENT_MEALS = 3;
+
+/**
+ * 取「最近更新」的 N 条，再按用餐时间正序交回去。
+ *
+ * **选入按 createdAt，展示按 eatenAt**，两个顺序不能互换：
+ * 若按 eatenAt 取尾部，补录一顿早饭（eatenAt 最早、createdAt 最新）会被判成
+ * 「最旧」而立刻藏进折叠里 —— 用户刚记完却看不见它。
+ * 也不按 createdAt 倒序展示：一天的记录读起来应该是从早到晚，不是倒叙。
+ */
+function recentMeals(meals: Meal[], n: number): Meal[] {
+  if (meals.length <= n) return meals;
+  return [...meals]
+    .sort((a, b) => b.createdAt - a.createdAt)
+    .slice(0, n)
+    .sort((a, b) => a.eatenAt - b.eatenAt);
+}
+
 function BpPair({ r }: { r: BpReading | null }) {
   if (!r) return <b style={{ fontSize: 15, color: 'var(--mute)' }}>—</b>;
   return <b style={{ fontSize: 15 }}>{r.systolic}/{r.diastolic}</b>;
@@ -44,11 +63,8 @@ function BpPair({ r }: { r: BpReading | null }) {
 export function TodayPage() {
   const { profile, goal, today } = useAppData();
   const nav = useNavigate();
-  /** 微量营养素默认收起：14 格是"想细看时再看的"，不该占据首屏的半屏高度 */
-  const [microOpen, setMicroOpen] = useState(false);
-  /** 今日记录同样默认收起：一餐没记时它已经在说「还没有记录」，记了之后逐条列表
-      又会把血压卡推到屏幕外。收起后头行仍报「N 餐 M 项」，一眼能确认记没记。 */
-  const [recordsOpen, setRecordsOpen] = useState(false);
+  /** 今日记录：默认只看最近更新的 3 条，更早的折起（0.9.8 取消整块折叠） */
+  const [moreOpen, setMoreOpen] = useState(false);
 
   const meals = useLiveQuery(() => mealsOfDay(today), [today]);
   // 两条血压数据合在**同一次查询**里取回 —— 拆成两个 useLiveQuery 会让这一页多一次
@@ -95,6 +111,10 @@ export function TodayPage() {
     }
     : null;
 
+  /** 折叠时只交最近更新的 3 条；展开就是全部（顺序仍是当天的先后） */
+  const shown = moreOpen ? meals : recentMeals(meals, RECENT_MEALS);
+  const hasMore = meals.length > RECENT_MEALS;
+
   async function remove(id: string, kcalOf: number) {
     if (!window.confirm(`删除这条记录（${Math.round(kcalOf)} kcal）？`)) return;
     await softDeleteMeal(id);
@@ -139,30 +159,29 @@ export function TodayPage() {
           planLine={planLine}
         />
 
-        {/* 微量 14 格默认收起。位置在建议卡（含「今日来源 TOP3」）之下 ——
-            原来它夹在宏量卡与建议卡之间，把「今天还剩多少 → 这说明什么」这条主线切断；
-            现在它和 TOP3 挨着，两者都是「想深挖时再看」的明细。
-            折叠而不是"精选 6 项"：这个 App 的价值主张就是 19 项全覆盖，
-            藏掉 VA/B1/烟酸 等于自砍卖点。折叠只是把信息挪到点击后面，一项都没丢。
-            展开用 hidden 做 CSS 显隐，不换查询 —— 重新查库会闪一下「—」。 */}
-        <div className={`fold ${microOpen ? 'open' : ''}`}>
-          <button onClick={() => setMicroOpen((v) => !v)} aria-expanded={microOpen}>
+        {/* 微量 14 格**常显**，不再折叠。
+            位置仍在建议卡（含「今日来源 TOP3」）之下：原来它夹在宏量卡与建议卡之间，
+            把「今天还剩多少 → 这说明什么」这条主线切断；现在它和 TOP3 挨着，都是明细。
+
+            折叠换来的首屏高度不值得：这个 App 的卖点就是 19 项全覆盖，
+            折起来等于把卖点藏到一次点击后面，用户会以为只统计了热量和三大宏量。
+            14 格是 7 列 2 行，高度可控；真正把页面撑长的是逐条记录，
+            那个已经改成默认只展开最近 3 条。 */}
+        <div className="card">
+          <div className="title row">
+            <span>微量营养素</span>
             <span>
-              微量营养素
               {micro.known > 0
-                ? ` · ${micro.known} 项有数据${micro.hit > 0 ? ` · 达标 ${micro.hit}` : ''}`
-                : ` · ${micro.total} 项待补`}
+                ? `${micro.known} 项有数据${micro.hit > 0 ? ` · 达标 ${micro.hit}` : ''}`
+                : `${micro.total} 项待补`}
             </span>
-            <span className="chev"><IconChevron size={16} /></span>
-          </button>
-          <div className="body" hidden={!microOpen}>
-            <MicroGrid totals={t} coverage={sum.coverage} targets={microTargets} />
           </div>
+          <MicroGrid totals={t} coverage={sum.coverage} targets={microTargets} />
         </div>
 
         <div style={{ marginTop: 16 }}>
-          {/* 空态**不折叠**：折起来会把「点中间的相机拍一张」这条唯一引导藏到一次点击后面，
-              而标题行写「今日记录 · 0 餐 0 项」本身就是一句废话。 */}
+          {/* 空态直接说完怎么记第一餐，不折叠也不给「展开」——
+              0 条时折起来只会把唯一引导藏到一次点击后面。 */}
           {meals.length === 0 ? (
             <>
               <div className="row" style={{ padding: '0 2px', marginBottom: 8 }}>
@@ -174,50 +193,68 @@ export function TodayPage() {
               </div>
             </>
           ) : (
-            /* 用 .fold.plain：这里每条餐次本身就是一张卡片，
-               外面再套一层带底色的 .fold 会变成卡中卡（两层描边、两层白底）。 */
-            <div className={`fold plain ${recordsOpen ? 'open' : ''}`} style={{ marginTop: 0 }}>
-              <button onClick={() => setRecordsOpen((v) => !v)} aria-expanded={recordsOpen}>
-                <span>今日记录 · {meals.length} 餐 {sum.itemCount} 项</span>
-                <span className="chev"><IconChevron size={16} /></span>
-              </button>
-              <div className="body" hidden={!recordsOpen}>
-                {meals.map((m) => {
-              const k = typeof m.totals.kcal === 'number' ? m.totals.kcal : 0;
-              const names = m.items.map((i) => i.name).join(' · ');
-              const SlotIcon = SLOT_ICON[m.slot];
-              return (
-                <div className="meal" key={m.id}>
-                  <div className="thumb" style={{ color: 'var(--green)' }}>
-                    {SlotIcon ? <SlotIcon size={18} /> : '·'}
-                  </div>
-                  <div className="info">
-                    <div className="n">{names || '未命名'}</div>
-                    <div className="d">
-                      {formatClock(m.eatenAt)} · {SLOT_LABELS[m.slot]} · {m.items.length} 项
-                    </div>
-                  </div>
-                  <div className="kcal">
-                    <b>{Math.round(k)}</b>
-                    <span>kcal</span>
-                  </div>
-                  <button
-                    className="edit"
-                    aria-label="编辑"
-                    title="编辑这一餐"
-                    onClick={() => nav(`/meal/${m.id}`)}
-                  >
-                    <IconPencil size={14} />
-                  </button>
-                  <button className="del" aria-label="删除" onClick={() => void remove(m.id, k)}>×</button>
-                </div>
-              );
-                })}
+            <>
+              {/* 标题行常显。原来是整块折叠（连标题都在按钮里），收起时看不出今天记没记、
+                  记了几餐；现在固定报「N 餐 M 项」，只把多出来的条目收起来。 */}
+              <div className="row" style={{ padding: '0 2px', marginBottom: 8 }}>
+                <span style={{
+                  fontSize: 'var(--fs-caption)', fontWeight: 'var(--fw-emphasis)', color: 'var(--dim)',
+                }}>
+                  今日记录
+                </span>
+                <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--mute)' }}>
+                  {meals.length} 餐 {sum.itemCount} 项
+                </span>
               </div>
-            </div>
+
+              {shown.map((m) => {
+                const k = typeof m.totals.kcal === 'number' ? m.totals.kcal : 0;
+                const names = m.items.map((i) => i.name).join(' · ');
+                const SlotIcon = SLOT_ICON[m.slot];
+                return (
+                  <div className="meal" key={m.id}>
+                    <div className="thumb" style={{ color: 'var(--green)' }}>
+                      {SlotIcon ? <SlotIcon size={18} /> : '·'}
+                    </div>
+                    <div className="info">
+                      <div className="n">{names || '未命名'}</div>
+                      <div className="d">
+                        {formatClock(m.eatenAt)} · {SLOT_LABELS[m.slot]} · {m.items.length} 项
+                      </div>
+                    </div>
+                    <div className="kcal">
+                      <b>{Math.round(k)}</b>
+                      <span>kcal</span>
+                    </div>
+                    <button
+                      className="edit"
+                      aria-label="编辑"
+                      title="编辑这一餐"
+                      onClick={() => nav(`/meal/${m.id}`)}
+                    >
+                      <IconPencil size={14} />
+                    </button>
+                    <button className="del" aria-label="删除" onClick={() => void remove(m.id, k)}>×</button>
+                  </div>
+                );
+              })}
+
+              {/* 超过 3 条才出现。展开后按钮变成「收起」而不是消失 ——
+                  消失的话只能靠刷新回到折叠态。 */}
+              {hasMore && (
+                <button
+                  className={`more-btn ${moreOpen ? 'open' : ''}`}
+                  onClick={() => setMoreOpen((v) => !v)}
+                  aria-expanded={moreOpen}
+                >
+                  {moreOpen ? `收起，只看最近 ${RECENT_MEALS} 条` : `展开更早的 ${meals.length - RECENT_MEALS} 条`}
+                  <span className="chev"><IconChevron size={16} /></span>
+                </button>
+              )}
+            </>
           )}
 
-          {/* 「记一餐」留在折叠体**外面**：折叠只收内容，不收操作。
+          {/* 「记一餐」在折叠体**外面**：折叠只收内容，不收操作。
               否则收起状态下想手动记一餐，得先点开面板才能找到入口 —— 等于藏了一个功能。 */}
           <button className="btn-ghost-wide" onClick={() => nav('/add')}>
             记一餐 · 搜索食物

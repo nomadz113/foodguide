@@ -1,4 +1,4 @@
-import { PERIOD_DAYS } from '../../core/report/period';
+import { PERIOD_DAYS, WEIGHT_MA_DAYS } from '../../core/report/period';
 import { Sparkline } from '../../ui/Sparkline';
 import { PeriodNav } from '../../ui/PeriodNav';
 import type { DietStatsResult } from './useDietStats';
@@ -143,7 +143,7 @@ export function DietStats({ st }: { st: DietStatsResult }) {
               {change == null ? '—' : Math.abs(change.deltaKg) < 0.05 ? '0.0' : `${change.deltaKg > 0 ? '+' : ''}${change.deltaKg.toFixed(1)}`}
               <i>kg</i>
             </b>
-            <em>{change == null ? '需要两次以上称重' : `${change.points} 次称重 · ${change.method === 'ma' ? '7 日均值' : '首末原始值'}`}</em>
+            <em>{change == null ? '需要两次以上称重' : `${change.points} 次称重 · ${change.method === 'ma' ? `${WEIGHT_MA_DAYS} 日均值` : '首末原始值'}`}</em>
           </div>
         </div>
 
@@ -156,12 +156,12 @@ export function DietStats({ st }: { st: DietStatsResult }) {
       <div className="card">
         <div className="title row">
           <span>体重趋势</span>
-          <span style={{ fontSize: 'var(--fs-caption)' }}>细点是称重 · 绿线是 7 日均值</span>
+          <span style={{ fontSize: 'var(--fs-caption)' }}>细点是称重 · 绿线是 {WEIGHT_MA_DAYS} 日均值</span>
         </div>
         <Sparkline points={v.points} target={goal.targetWeightKg} />
         {v.points.length > 0 && (
           <div className="krow" style={{ marginTop: 4 }}>
-            <span className="k">最新（7 日均）</span>
+            <span className="k">最新（{WEIGHT_MA_DAYS} 日均）</span>
             <span className="v">
               {v.points[v.points.length - 1]!.ma?.toFixed(1)}
               <small>kg</small>

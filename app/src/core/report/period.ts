@@ -306,20 +306,28 @@ export function summarise(
   };
 }
 
-// ── 体重：7 日移动平均 ───────────────────────────────────────
+// ── 体重：30 日移动平均 ──────────────────────────────────────
+
+/**
+ * 平滑窗口天数。**改这个数就要连带改三处口径**：调用方要往前多取够
+ * `WEIGHT_MA_DAYS - 1` 天的称重（否则窗口头部是残缺的）、
+ * 界面文案（「30 日均值」）与单测里的窗口边界。
+ */
+export const WEIGHT_MA_DAYS = 30;
 
 export interface WeightPoint {
   day: string;
   raw: number | null;
-  /** 7 日移动平均（含当天在内的最近 7 天里所有称重） */
+  /** 30 日移动平均（含当天在内的最近 30 天里所有称重） */
   ma: number | null;
 }
 
 /**
- * 原始日体重受水分、盐分、排便影响，日间波动 ±1kg 是常态。
- * 直接画原始点用户看到锯齿会以为方案失效，所以画 7 日移动平均。
+ * 原始日体重受水分、盐分、排便影响，日间波动 ±1kg 是常态；而减脂期一周的真实
+ * 变化常常只有 0.3~0.5kg —— 窗口短于 2 周，曲线的起伏主要反映的是水分而不是脂肪。
+ * 所以取 30 天：一整个月的称重一起平均，趋势线上剩下的斜率才是「方案有没有用」。
  */
-export function smoothWeights(entries: WeightEntry[], windowDays = 7): WeightPoint[] {
+export function smoothWeights(entries: WeightEntry[], windowDays = WEIGHT_MA_DAYS): WeightPoint[] {
   const sorted = [...entries].sort((a, b) => (a.date < b.date ? -1 : 1));
   return sorted.map((e) => {
     const from = addDays(e.date, -(windowDays - 1));
@@ -344,6 +352,11 @@ export interface WeightChange {
 /**
  * 周期内的实际体重变化。
  * 有 ≥3 个称重点时用移动平均的起止值（抗水分波动），否则退回原始首末值并标注。
+ *
+ * **平滑用全部传入的称重，不只是窗口内的**：调用方已经把窗口前 29 天一起取回来了，
+ * 若在这里再按 inRange 过滤，窗口第一天的「30 日均值」其实只有 1~2 个点撑着 ——
+ * 那样算出来的变化既不是 30 日均口径，也会和趋势图上同一天的绿点对不上
+ * （图是拿全量平滑后再裁窗口的）。
  */
 export function weightChange(entries: WeightEntry[], from: string, to: string): WeightChange | null {
   const inRange = entries
@@ -351,10 +364,10 @@ export function weightChange(entries: WeightEntry[], from: string, to: string): 
     .sort((a, b) => (a.date < b.date ? -1 : 1));
   if (inRange.length < 2) return null;
 
-  const smoothed = smoothWeights(inRange);
   if (inRange.length >= 3) {
-    const a = smoothed[0]?.ma;
-    const b = smoothed[smoothed.length - 1]?.ma;
+    const maOf = new Map(smoothWeights(entries).map((p) => [p.day, p.ma]));
+    const a = maOf.get(inRange[0]!.date);
+    const b = maOf.get(inRange[inRange.length - 1]!.date);
     if (a != null && b != null) {
       return { from: a, to: b, deltaKg: b - a, points: inRange.length, method: 'ma' };
     }

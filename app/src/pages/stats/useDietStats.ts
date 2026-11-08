@@ -4,6 +4,7 @@ import { addDays } from '../../core/date';
 import { allGoals, mealsInRange, weightsInRange } from '../../core/db/repo';
 import {
   makeGoalResolver, periodRange, previousRange, smoothWeights, summarise, weightChange,
+  WEIGHT_MA_DAYS,
   type PeriodKind, type PeriodRange, type PeriodSummary, type WeightChange, type WeightPoint,
 } from '../../core/report/period';
 import { judge, type Verdict } from '../../core/report/verdict';
@@ -123,8 +124,9 @@ export function useDietStats(): DietStatsResult {
       mealsInRange(range.from, range.to),
       mealsInRange(prev.from, prev.to),
       allGoals(),
-      // 多取 7 天：移动平均在周期第一天需要用前几天的称重
-      weightsInRange(addDays(range.from, -7), range.to),
+      // 多取 WEIGHT_MA_DAYS−1 天：移动平均在周期第一天需要用到前面 29 天的称重。
+      // 少取一天，窗口头部的点就只在残缺样本上平均 —— 曲线的起点会假性抖动。
+      weightsInRange(addDays(range.from, -(WEIGHT_MA_DAYS - 1)), range.to),
     ]);
     return { meals, prevMeals, goals, weights };
   }, [range.from, range.to, prev.from, prev.to]);
@@ -135,7 +137,7 @@ export function useDietStats(): DietStatsResult {
 
     const s = summarise(range, data.meals, goalOf);
     const p = summarise(prev, data.prevMeals, goalOf);
-    // 滚动窗口末端就是今天，不需要再裁剪；移动平均仍需窗口前 7 天的称重
+    // 滚动窗口末端就是今天，不需要再裁剪；移动平均仍需窗口前 WEIGHT_MA_DAYS−1 天的称重
     const change = weightChange(data.weights, range.from, range.to);
     const points = smoothWeights(data.weights)
       .filter((x) => x.day >= range.from && x.day <= range.to);
