@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { recogniseBp } from '../core/ai/client';
 import { pickBpTime } from '../core/bp/time';
 import { AiError, AI_ERROR_TEXT } from '../core/ai/types';
@@ -62,6 +62,10 @@ function fromLocalInput(s: string): number | null {
 export function BpCapturePage({ manual = false }: { manual?: boolean } = {}) {
   const { settings, today } = useAppData();
   const nav = useNavigate();
+  const loc = useLocation();
+  /** 从「记一笔」总入口进来的：存完回首页（用户此刻在处理今天，不是去看统计）。
+   *  从统计页/首页血压卡进来的（含直接打开链接），仍回血压统计分区。 */
+  const fromHub = (loc.state as { from?: string } | null)?.from === 'hub';
   const camRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -244,7 +248,7 @@ export function BpCapturePage({ manual = false }: { manual?: boolean } = {}) {
       });
       // replace 而不是 push：栈原本是 [首页]→[表单]→[血压页]，保存后按一次返回
       // 会退回一张已经提交过的空白表单。换成 replace 之后是 [首页]→[血压]，返回即回首页。
-      nav('/stats?tab=bp', { replace: true });
+      nav(fromHub ? '/' : '/stats?tab=bp', { replace: true });
     } finally {
       setSaving(false);
     }
@@ -311,7 +315,11 @@ export function BpCapturePage({ manual = false }: { manual?: boolean } = {}) {
             </div>
             <div className="hint" style={{ marginTop: 10, textAlign: 'center' }}>
               不想拍照？
-              <button style={{ color: 'var(--green)', marginLeft: 2 }} onClick={() => nav('/bp/manual')}>
+              {/* 带着 from:hub 一起走：从「记一笔」进来又改成手填，存完仍该回首页 */}
+              <button
+                style={{ color: 'var(--green)', marginLeft: 2 }}
+                onClick={() => nav('/bp/manual', fromHub ? { state: { from: 'hub' } } : undefined)}
+              >
                 手动输入
               </button>
             </div>

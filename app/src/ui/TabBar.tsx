@@ -1,7 +1,12 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IconCamera, IconChat, IconProfile, IconStats, IconToday } from './icons';
 
-/** 导航：左右各两格，中间 FAB 直接进拍照识别。设置入口放在档案页底部，不占导航位 */
+/** 导航：左右各两格，中间 FAB 进「记一笔」总入口。设置入口放在档案页底部，不占导航位。 */
+
+/** 中间键现在管三条链路（餐 / 血压 / 体重截图），进去之后路径会变成
+ *  /bp/capture 或 /scale，高亮必须跟着 —— 否则用户刚从这个键进来，键自己先灭了。 */
+const RECORD_PATHS = ['/capture', '/bp/capture', '/bp/manual', '/scale'];
+
 export function TabBar() {
   const { pathname } = useLocation();
   const nav = useNavigate();
@@ -20,9 +25,9 @@ export function TabBar() {
 
       <div className="fab">
         <button
-          aria-label="拍照记一餐"
-          className={pathname === '/capture' ? 'on' : ''}
-          onClick={() => nav('/capture')}
+          aria-label="记一笔"
+          className={RECORD_PATHS.includes(pathname) ? 'on' : ''}
+          onClick={() => nav('/capture', RECORD_PATHS.includes(pathname) ? { replace: true } : undefined)}
         >
           <IconCamera size={22} />
         </button>

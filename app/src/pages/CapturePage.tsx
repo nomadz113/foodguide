@@ -318,7 +318,7 @@ export function CapturePage() {
     <>
       <div className="sheetbar">
         <button onClick={() => nav('/')}>取消</button>
-        <h2>拍照识别</h2>
+        <h2>{phase === 'idle' ? '记一笔' : '拍照识别'}</h2>
         {/* 保存常驻在底部（手指在那儿）。这里换成「重拍」——
             识别完想换一张图，原来只能取消退页再进来。 */}
         {phase === 'done' || phase === 'error' ? (
@@ -331,6 +331,11 @@ export function CapturePage() {
       <div className="main">
         {phase === 'idle' && (
           <div className="capture-idle">
+            {/* 这页是「记一笔」的总入口，不是只有拍照：
+                三条链路（餐 / 血压 / 体重截图）各有独立提示词、独立校验、独立确认卡，
+                合在这里的只是入口，下面三行按钮一按就各自跳进原来的页面。
+                主按钮仍是相机 —— 95% 的情况下用户点 FAB 是为了记这一顿饭，
+                不能让他在门口先做一道选择题。 */}
             <div className="empty" style={{ paddingTop: 0 }}>
               {lowKey ? (
                 <>
@@ -348,11 +353,9 @@ export function CapturePage() {
                 </>
               )}
             </div>
-            {/* 上下堆叠而不是左右等宽：空态是分发入口，两个等宽按钮先让用户做一道选择题。
-                这条路 95% 的情况是拍照，所以主按钮占满一整行。 */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <button className="btn-primary-wide" onClick={() => camRef.current?.click()}>
-                拍照
+                拍照记这一餐
               </button>
               <button className="btn-ghost-wide" style={{ marginTop: 0 }} onClick={() => fileRef.current?.click()}>
                 从相册选
@@ -366,6 +369,27 @@ export function CapturePage() {
                 请用「从相册选」或直接拍好再选。
               </div>
             )}
+
+            {/* 身体数据的两条入口。带上 from:'hub'，那两页存完回首页而不是回统计/档案 ——
+                从这里进来的用户在「记今天」，不是去「看统计」。 */}
+            <div className="hint" style={{ marginTop: 18 }}>或者记一项身体数据</div>
+            <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
+              <button
+                className="btn-ghost-wide"
+                style={{ marginTop: 0, flex: 1, minWidth: 0 }}
+                onClick={() => nav('/bp/capture', { state: { from: 'hub' } })}
+              >
+                血压计屏幕
+              </button>
+              <button
+                className="btn-ghost-wide"
+                style={{ marginTop: 0, flex: 1, minWidth: 0 }}
+                onClick={() => nav('/scale', { state: { from: 'hub' } })}
+              >
+                体脂秤截图
+              </button>
+            </div>
+
             <div className="hint" style={{ marginTop: 16 }}>
               放个筷子、易拉罐做参照，份量会更准
             </div>

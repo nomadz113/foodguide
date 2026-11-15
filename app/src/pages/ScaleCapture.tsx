@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { recogniseScale } from '../core/ai/client';
 import { pickScaleTime, shouldSyncProfile } from '../core/scale/time';
@@ -51,6 +51,9 @@ function fromLocalInput(s: string): number | null {
 export function ScaleCapturePage() {
   const { profile, goal, settings, today, applyProfile } = useAppData();
   const nav = useNavigate();
+  const loc = useLocation();
+  /** 从「记一笔」总入口进来的：存完回首页。从档案页体重字段进来的仍回档案。 */
+  const fromHub = (loc.state as { from?: string } | null)?.from === 'hub';
   const fileRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -220,7 +223,7 @@ export function ScaleCapturePage() {
       }
 
       // replace：栈原本是 [档案]→[截图]，保存后按一次返回不该退回已提交的空白表单
-      nav('/profile', { replace: true });
+      nav(fromHub ? '/' : '/profile', { replace: true });
     } catch (e) {
       setSaveWarn(e instanceof Error ? `保存失败：${e.message}` : '保存失败');
     } finally {
