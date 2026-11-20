@@ -4,9 +4,9 @@
 
 AI 识别食物与份量，换算成 19 项营养素，对照你自己的每日目标看日 / 周 / 月 / 季。
 
-**v0.9.7** · Android · 纯本地存储 · 无后端
+**v0.9.9** · Android · 纯本地存储 · 无后端
 
-[![下载 APK v0.9.7](https://img.shields.io/badge/APK-v0.9.7-2ea44f?style=for-the-badge)](https://github.com/nomadz113/foodguide/releases)
+[![下载 APK v0.9.9](https://img.shields.io/badge/APK-v0.9.9-2ea44f?style=for-the-badge)](https://github.com/nomadz113/foodguide/releases)
 
 | 今日 | 统计 | 个人档案 |
 |:---:|:---:|:---:|
@@ -57,8 +57,8 @@ AI 识别食物与份量，换算成 19 项营养素，对照你自己的每日�
 
 | 安装包 | 说明 | 体积 |
 |---|---|---|
-| [wb 版](https://github.com/nomadz113/foodguide/releases/download/v0.9.7/haohao-chifan-0.9.7-wb.apk) | 加载线上托管的页面，拍照识别直接用，需要联网 | 约 5.0 MB |
-| [offline 版](https://github.com/nomadz113/foodguide/releases/download/v0.9.7/haohao-chifan-0.9.7-offline.apk) | 页面资源内嵌，断网也能看数据；AI 识别要在「设置」里自备一把百炼密钥 | 约 5.0 MB |
+| [wb 版](https://github.com/nomadz113/foodguide/releases/download/v0.9.9/haohao-chifan-0.9.9-wb.apk) | 加载线上托管的页面，拍照识别直接用，需要联网 | 约 5.1 MB |
+| [offline 版](https://github.com/nomadz113/foodguide/releases/download/v0.9.9/haohao-chifan-0.9.9-offline.apk) | 页面资源内嵌，断网也能看数据；AI 识别要在「设置」里自备一把百炼密钥 | 约 5.1 MB |
 
 安装步骤：
 
