@@ -1,5 +1,5 @@
 /**
- * 意图解析验收 —— 用 20 条人工语料跑**真实模型**，逐条比对 type 与关键字段。
+ * 意图解析验收 —— 用 21 条人工语料跑**真实模型**，逐条比对 type 与关键字段。
  *
  * 为什么写在 vitest 里而不是 tools/*.mjs：
  * 该模块有相对导入，Node 的 --experimental-strip-types 不解析无扩展名的相对路径，
@@ -156,6 +156,18 @@ const CASES: Case[] = [
     check: (i) => ((i.food?.serving?.grams ?? 0) >= 40 ? null : `一个鸡蛋 grams 太小：${i.food?.serving?.grams}`),
   },  { text: '把今天中午那一餐删掉', type: 'delete_meal', check: ok },
   { text: '我的目标热量是多少', type: 'query_stats', check: ok },
+  {
+    // A+B+C+炒式菜名（≥3 个并列食材名词）必须拆解，不许整条 —— 整条匹配不上库，微量全丢
+    text: '今天中午吃了一盘青椒榨菜香干炒肉丝',
+    type: 'log_meal',
+    check: (i) => {
+      if (i.meal?.slot !== 'lunch') return `slot 应为 lunch，实际 ${i.meal?.slot}`;
+      const names = (i.meal?.items ?? []).map((it) => it.name).join('、');
+      if ((i.meal?.items?.length ?? 0) < 3) return `应拆成 ≥3 条食材，实际 ${names}`;
+      if (names.includes('青椒榨菜香干炒肉丝')) return `不许整条输出：${names}`;
+      return null;
+    },
+  },
 ];
 
 async function call(text: string) {
@@ -186,7 +198,7 @@ async function call(text: string) {
 }
 
 describe.skipIf(!RUN || !KEY)('意图语料验收（真实模型 qwen-plus）', () => {
-  it('20 条语料意图分类准确率 ≥90%', async () => {
+  it('21 条语料意图分类准确率 ≥90%', async () => {
     const failures: string[] = [];
     let inTok = 0;
     let outTok = 0;

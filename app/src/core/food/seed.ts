@@ -1145,6 +1145,16 @@ const ROWS: Row[] = [
       potassium: 32, calcium: 1.5, iron: 0.2, zinc: 0.5, selenium: 0.4, magnesium: 18,
       va: 0, vc: 0, vd: 0, b1: 0.04, b2: 0.02,
     }, [1, '碗', 300], ['紫米粥', '黑米稀饭']],
+  // ── v8（2026-11-20）：并列食材拆解的配套条目 ──
+  // 「青椒榨菜香干炒肉丝」这类 A+B+C+炒式菜名提示词已要求拆到食材，
+  // 青椒/豆腐干/猪里脊库里都有，唯独榨菜缺失 —— 拆出来也匹配不上。
+  // 钠 4252mg/100g：一碟 30g 就带 1275mg 钠，是这道菜钠值的主体。
+  ['榨菜', '调味', [29, 2.2, 0.3, 6.5],
+    {
+      fiber: 2.2, sodium: 4252,
+      potassium: 363, calcium: 155, iron: 4.1, zinc: 0.63, selenium: 1.25, magnesium: 54,
+      vc: 2, vd: 0, b1: 0.04, b2: 0.04, niacin: 0.8,
+    }, [1, '份', 30], ['榨菜丝', '涪陵榨菜']],
   // ─── 扩展库结束 ───
 ];
 
@@ -1169,7 +1179,7 @@ export const SEED_FOODS: SeedFood[] = build();
  *
  * 定义已经搬到 ./seedVersion.ts —— 那个文件没有数据表，可以被首屏静态引用；
  * 这里 re-export 只为向后兼容（测试与工具从 './seed' 引，保持原路径不动）。
- * 新增引用请直接引 './seedVersion'，否则等于把 174 条数据重新拖回首屏。
+ * 新增引用请直接引 './seedVersion'，否则等于把 175 条数据重新拖回首屏。
  */
 export { SEED_VERSION } from './seedVersion';
 

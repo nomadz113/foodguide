@@ -395,6 +395,14 @@ function resolveMeal(intent: Intent, ctx: ResolveContext): ResolvedCard {
         `「${it.name}」的热量与宏量按 AI 估的这盘菜算，${fill.filled.length} 项微量参考食物库「${ref.food.name}」`,
       );
     }
+    // 两级匹配全落空 + 名字长：多半是没拆解的复合菜名（A+B+C+炒式），
+    // 13 项维生素矿物质全丢。只报信不重算 —— 重调一次模型仍可能整条回来，
+    // 成本与失败路径都不划算；提示用户拆开说是零成本的下次改进。
+    if (!hit && !ref && it.name.trim().length >= 5) {
+      caveats.push(
+        `「${it.name}」没匹配上食物库，维生素矿物质没算上；下次把配料拆开说（如「青椒、香干、肉丝」）会更准`,
+      );
+    }
     const nutrition = scaleFacts(fill.per100g, grams);
     items.push({
       name: it.name,
